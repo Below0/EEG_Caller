@@ -28,7 +28,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
-        if (remoteMessage.getNotification() != null){8
+        if (remoteMessage.getNotification() != null){
             Log.d("FCM", "알림 메세지: "+ remoteMessage.getNotification().getBody());
             String body = remoteMessage.getNotification().getBody();
             String title = remoteMessage.getNotification().getTitle();
