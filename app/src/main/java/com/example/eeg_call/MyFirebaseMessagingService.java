@@ -1,5 +1,7 @@
 package com.example.eeg_call;
 
+import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,6 +10,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.PowerManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -17,6 +20,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
+
     @Override
     public void onNewToken(@NonNull String s) {
         super.onNewToken(s);
@@ -24,7 +28,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
-        if (remoteMessage.getNotification() != null){
+        if (remoteMessage.getNotification() != null){8
             Log.d("FCM", "알림 메세지: "+ remoteMessage.getNotification().getBody());
             String body = remoteMessage.getNotification().getBody();
             String title = remoteMessage.getNotification().getTitle();
@@ -39,7 +43,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .setContentText(body)
                     .setSound(alarm)
                     .setAutoCancel(true)
-                    .setContentIntent(pendingIntent);
+                    .setContentIntent(pendingIntent)
+                    .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
 
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
